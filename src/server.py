@@ -1,6 +1,5 @@
 import socket
 import tkinter as tk
-from tkinter import ttk
 import threading
 
 class ChatServer:
@@ -53,6 +52,10 @@ class ChatServer:
         Broadcasts addition of the client as 'NEW_CLIENT,name,ip,port'. It handles broadcast messages as
         'BROADCAST,name,message' and handles quitting of clients by removing the client and broadcasting
         as 'QUIT,name'.
+
+        Args:
+            client_socket: Socket to receive client data
+            client_ip: Client IP adress
         """
         try:
             data = client_socket.recv(1024)
@@ -81,6 +84,9 @@ class ChatServer:
 
     def broadcast(self, message: str):
         """Send message to all currently connected clients
+
+        Args:
+            message: String to be broadcasted to all clients
         """
         for _, (ip, port) in self.clients.items():
             try:
